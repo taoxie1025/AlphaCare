@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+option go_package = "generated/billing";
+option java_multiple_files = true;
+option java_package = "io.grpc.alphacare.billing";
+option java_outer_classname = "BillingProto";
+
+package api.v1;
+
+message CheckoutSubscriptionSessionRequest {
+  string priceId = 1;
+  string plan = 2;
+  string email = 3;
+  string successUrl = 4;
+  string cancelUrl = 5;
+  string stripeCustomerId = 6;
+  string coupon = 7;
+}
+
+message CheckoutSubscriptionSessionResponse {
+  string sessionId = 1;
+}
+
+message ValidateCouponRequest {
+  string couponId = 1;
+}
+
+message ValidateCouponResponse {
+  bool isCouponValid = 1;
+  int64 amountOff = 2;
+  double percentOff = 3;
+}
+
+message CreateCustomerRequest {
+  string email = 1;
+  string firstName = 2;
+  string lastName = 3;
+}
+
+message CreateCustomerResponse {
+  string customerId = 1;
+}
+
+message CreateConnectedAccountRequest {
+  string email = 1;
+  string refreshUrl = 2;
+  string returnUrl = 3;
+}
+
+message CreateConnectedAccountResponse {
+  string accountId = 1;
+  string email = 2;
+  string onboardingUrl = 3;
+  int64 createdAt = 4;
+  int64 expiresAt = 5;
+}
+
+message CreateInvoiceRequest {
+  string customerId = 1;
+  double amount = 2;
+}
+
+message CreateInvoiceResponse {
+  string invoiceId = 1;
+  string invoicePdfUrl = 2;
+  string paymentUrl = 3;
+  string customerId = 4;
+  string customerEmail = 5;
+}
+
+service Billing {
+  rpc CheckoutSubscriptionSession (CheckoutSubscriptionSessionRequest) returns (CheckoutSubscriptionSessionResponse);
+  rpc ValidateCoupon (ValidateCouponRequest) returns (ValidateCouponResponse);
+  rpc CreateCustomer (CreateCustomerRequest) returns (CreateCustomerResponse);
+  rpc CreateConnectedAccount (CreateConnectedAccountRequest) returns (CreateConnectedAccountResponse);
+  rpc CreateInvoice(CreateInvoiceRequest) returns (CreateInvoiceResponse);
+}

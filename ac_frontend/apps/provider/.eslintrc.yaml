@@ -1,0 +1,46 @@
+extends:
+  - 'plugin:react/recommended'
+  - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:react-hooks/recommended'
+  - 'prettier'
+  - 'prettier/@typescript-eslint'
+  - 'prettier/react'
+parser: '@typescript-eslint/parser'
+plugins:
+  - '@typescript-eslint'
+  - 'prettier'
+  - 'simple-import-sort'
+  - react-hooks
+  - cypress
+env:
+  node: true
+  browser: true
+  cypress/globals: true
+parserOptions:
+  ecmaVersion: 2019
+rules:
+  simple-import-sort/sort: error
+  one-var: 0
+  eol-last: error
+  no-return-await: error
+  require-await: error
+  func-style: 0
+  react/display-name: 0
+  react/jsx-indent-props: 0
+  react/sort-prop-types: error
+  react-hooks/rules-of-hooks: error
+  react-hooks/exhaustive-deps: warn
+  '@typescript-eslint/no-var-requires': 0
+  '@typescript-eslint/no-unused-vars': error
+  '@typescript-eslint/no-non-null-assertion': off
+settings:
+  react:
+    version: detect
+  jsdoc:
+    mode: typescript
+overrides:
+  - files:
+      - '*.test.ts'
+      - '*.spec.ts'
+    rules:
+      no-undef: 'off'

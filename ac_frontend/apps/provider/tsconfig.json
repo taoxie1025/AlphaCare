@@ -1,0 +1,26 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "baseUrl": "./",
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "lib": ["dom", "es6", "es7", "es2018"],
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types", "./typings"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "pretty": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "*": ["./node_modules/*"],
+      "client-src/*": ["client-src/*"],
+      "typings/*": ["typings/*"]
+    }
+  },
+  "include": ["./server", "./client-src", "./typings"],
+  "exclude": ["node_modules", "dist"]
+}

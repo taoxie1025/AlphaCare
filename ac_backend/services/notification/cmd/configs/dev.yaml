@@ -1,0 +1,9 @@
+app:
+    env:  "dev"
+    server:
+        port: ":50055"
+        reversedProxy: "nginx:8080"
+    ses:
+        defaultOutgoingEmail: "no-reply@nyxcare.com"
+        billingOutgoingEmail: "no-reply@nyxcare.com"
+        accountOutgoingEmail: "no-reply@nyxcare.com"

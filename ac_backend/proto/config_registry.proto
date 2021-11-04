@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option go_package = "generated/config_registry";
+option java_multiple_files = true;
+option java_package = "io.grpc.alphacare.config_registry";
+option java_outer_classname = "UserRegistryProto";
+
+package api.v1;
+
+message Plugin {
+  string id = 1;
+  string name = 2;
+  string version = 3;
+}
+
+message Config {
+  string id = 1;
+  string UserId = 2;
+  repeated Plugin installedPlugins = 3;
+}
+
+message GetConfigRequest {
+  string userId = 1;
+}
+
+message GetConfigResponse {
+  Config config = 1;
+}
+
+message CreateConfigRequest {
+  string userId = 1;
+}
+
+message CreateConfigResponse {
+  string id = 1;
+}
+
+message UpdateConfigRequest {
+  string userId = 1;
+  Config config = 2;
+}
+
+message UpdateConfigResponse {
+  string id = 1;
+}
+
+message DeleteConfigRequest {
+  string userId = 1;
+}
+
+message DeleteConfigResponse {
+  string userId = 1;
+}
+
+service ConfigRegistry {
+  rpc GetConfig (GetConfigRequest) returns (GetConfigResponse);
+  rpc CreateConfig (CreateConfigRequest) returns (CreateConfigResponse);
+  rpc UpdateConfig (UpdateConfigRequest) returns (UpdateConfigResponse);
+  rpc DeleteConfig (DeleteConfigRequest) returns (DeleteConfigResponse);
+}
+

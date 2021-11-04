@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "generated/notification";
+option java_multiple_files = true;
+option java_package = "io.grpc.alphacare.notification";
+option java_outer_classname = "NotificationProto";
+
+package api.v1;
+
+enum EmailType {
+  EmailTypeNone = 0;
+  EmailTypeGeneral = 1;
+  EmailTypeBilling = 2;
+  EmailTypeAccount = 3;
+}
+
+message SendEmailRequest {
+  repeated string to = 1;
+  EmailType type = 2;
+  string htmlBody = 3;
+  string subject = 4;
+}
+
+message SendEmailResponse {
+
+}
+
+service Notification {
+  rpc SendEmail (SendEmailRequest) returns (SendEmailResponse);
+}
+

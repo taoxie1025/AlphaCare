@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+option go_package = "generated/patient_visit";
+option java_multiple_files = true;
+option java_package = "io.grpc.alphacare.patient_visit";
+option java_outer_classname = "PatientVisitProto";
+
+package api.v1;
+
+
+message PatientVisit {
+    string id = 1;
+    string patientId = 2;
+    ServiceProvider serviceProvider = 3;
+    string ReasonForVisit = 4;
+    Allergies allergies = 5;
+    Assessment assessment = 6;
+    ScheduledTests scheduledTests = 7;
+    VitalSigns vitalSigns = 8;
+    repeated HealthProblem HealthProblems = 9;
+    int64 visitTime = 10;
+}
+
+message AddPatientVisitRequest {
+    string id = 1;
+    string patientId = 2;
+    ServiceProvider serviceProvider = 3;
+    string ReasonForVisit = 4;
+    Allergies allergies = 5;
+    Assessment assessment = 6;
+    ScheduledTests scheduledTests = 7;
+    VitalSigns vitalSigns = 8;
+    repeated HealthProblem HealthProblems = 9;
+    int64 visitTime = 10;
+}
+
+message ServiceProvider {
+    string id = 1;
+    string firstName = 2;
+    string lastName = 3;
+    string type = 4;
+}
+
+message Allergies {
+    string allergies = 1;
+    string adverseReactions = 2;
+    string alerts = 3;
+}
+
+message Assessment {
+    string assessment = 1;
+}
+
+message ScheduledTests {
+    string testName = 1;
+    string scheduledDate = 2;
+}
+
+message VitalSigns {
+    string signName = 1;
+}
+
+message HealthProblem {
+    string id = 1;
+    string condition = 2;
+    Status status = 3;
+    string comment = 4;
+}
+
+ enum Status {
+   STATUS_ACTIVE = 0;
+   STATUS_INACTIVE = 1;
+ }
+
+message AddPatientVisitResponse {
+  string id = 1;
+}
+
+message GetPatientVisitsRequest {
+  string visitId = 1;
+  string patientId = 2;
+  string serviceProviderId = 3;
+  string dateFrom = 4;
+  string dateTo = 5;
+}
+
+message GetPatientVisitsResponse {
+  repeated PatientVisit patientVisits = 1;
+}
+
+service PatientVisitService {
+  rpc AddPatientVisit (AddPatientVisitRequest) returns (AddPatientVisitResponse);
+  rpc GetPatientVisits (GetPatientVisitsRequest) returns (GetPatientVisitsResponse);
+}
+

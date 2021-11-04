@@ -1,0 +1,13 @@
+app:
+    env:  "dev"
+    jwtKey: "D474A1E00FC53F8D19E2795CC452D2E490C147773C25EB96E1559A22F32AA201"
+    jwtExpiryInMinutes: 1440
+    server:
+        port: ":50051"
+        reversedProxy: "nginx:8080"
+    db:
+        user: "postgres"
+        password: "12345"
+        url: "db"
+        port: "5432"
+        name: "alphacare"

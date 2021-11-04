@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+option go_package = "generated/patient_registry";
+option java_multiple_files = true;
+option java_package = "io.grpc.alphacare.patient_registry";
+option java_outer_classname = "PatientRegistryProto";
+
+package api.v1;
+
+message CreatPatientRequest {
+    patient patient = 1;
+}
+
+message PatientEmergencyContact {
+    string firstName = 1;
+    string lastName = 2;
+    string phoneNumber = 3;
+    EmergencyContactRelationship relationship = 4;
+}
+
+message Referral {
+    ReferredBy referredBy = 1;
+    string referralDate = 2;
+    string comment = 3;
+}
+
+message patient {
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string SSN = 4;
+  Gender gender = 5;
+  int32 yearOfBirth = 6;
+  int32 monthOfBirth = 7;
+  int32 dayOfBirth = 8;
+  Status status = 9;
+  string primaryCarePhysician = 10;
+  string phoneWork = 11;
+  string phoneHome = 12;
+  string phoneMobile = 13;
+  string addressStreet = 14;
+  string addressCity = 15;
+  string addressState = 16;
+  string addressZip = 17;
+  double weightInKg = 18; // in kg
+  double heightInCm = 19; // in centimeter
+  string ethnicity = 20;
+  string email = 21;
+  PatientEmergencyContact patientEmergencyContact = 22;
+  Referral referral = 23;
+  int64 createdAt = 24; // in millisecond
+  int64 updatedAt = 25; // in millisecond
+}
+
+enum Gender {
+  GENDER_NONE = 0;
+  GENDER_MALE = 1;
+  GENDER_FEMALE = 2;
+  GENDER_OTHER = 3;
+  GENDER_UNKNOWN = 4;
+}
+
+enum EmergencyContactRelationship {
+  RELATIONSHIP_FRIEND = 0;
+  RELATIONSHIP_FAMILY = 1;
+}
+
+enum ReferredBy {
+    REFERRAL_SEARCH = 0;
+    REFERRAL_FRIEND = 1;
+}
+
+ enum Status {
+   STATUS_ACTIVE = 0;
+   STATUS_DELETED = 1;
+   STATUS_PENDING_INSURANCE = 2;
+   STATUS_HOME_HEALTH = 3;
+ }
+
+message CreatPatientResponse {
+  patient patient = 1;
+}
+
+service PatientRegistryService {
+  rpc CreatePatient (CreatPatientRequest) returns (CreatPatientResponse);
+}
+

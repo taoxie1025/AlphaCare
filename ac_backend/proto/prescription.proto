@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+option go_package = "generated/prescription";
+option java_multiple_files = true;
+option java_package = "io.grpc.alphacare.prescription";
+option java_outer_classname = "PrescriptionProto";
+
+package api.v1;
+
+
+enum Status {
+	STATUS_ACTIVE = 0;
+	STATUS_DELETED = 1;
+	STATUS_EXPIRED = 2;
+}
+
+enum Urgency {
+    CRITICAL = 0;
+    HIGH = 1;
+    MEDIUM = 2;
+    LOW = 3;
+}
+
+message Pharmacy {
+    string id = 1;
+    string address = 2;
+    string phone = 3;
+}
+
+message Refill {
+    string id = 1;
+    string date = 2;
+    int64 count = 3;
+    string prescriptionId = 4;
+}
+
+message Renewal {
+    string id = 1;
+    string date = 2;
+    int64 count = 3;
+    string prescriptionId = 4;
+}
+
+message Prescription {
+	string id = 1;
+	string patientId = 2;
+	string primaryCarePhysician = 3;
+	string healthcareId = 4;
+	int64 timestamp = 5;
+	string subject = 6;
+	string messageBody = 7;
+	Urgency urgency = 8;
+	Status status = 9;
+	int64 quantity = 10;
+	string startDate = 11;
+	string visitDate = 12;
+	string endDate = 13;
+	Pharmacy pharmacy = 14;
+	string qualifier = 15;
+    string attachmentId = 16;
+    string attachmentType = 17;
+    string attachmentTitle = 18;
+    string attachmentUrl = 19;
+    repeated Refill refills = 20;
+    repeated Renewal renewals = 21;
+    string dose = 22;
+    string frequency = 23;
+    string orderedBy = 24;
+}
+
+message AddPrescriptionRequest {
+	Prescription prescription = 1;
+}
+
+message AddPrescriptionResponse {
+	string id = 1;
+}
+
+message GetPrescriptionsRequest {
+	string id = 1;
+	string patientId = 2;
+}
+
+message GetPrescriptionsResponse {
+	repeated Prescription prescription = 1;
+}
+
+
+service PrescriptionService {
+	rpc AddPrescription (AddPrescriptionRequest) returns (AddPrescriptionResponse);
+	rpc GetPrescriptions (GetPrescriptionsRequest) returns (GetPrescriptionsResponse);
+}

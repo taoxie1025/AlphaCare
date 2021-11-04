@@ -1,0 +1,17 @@
+# build stage
+FROM node:lts-alpine as build-stage
+ADD ac_frontend/apps/admin/. /admin/
+WORKDIR admin
+RUN npm install
+RUN npm run build
+
+# production stage
+FROM openresty/openresty:xenial
+RUN opm get SkyLothar/lua-resty-jwt
+ADD ac_backend/docker/nginx/nginx.conf.dev /usr/local/openresty/nginx/conf/nginx.conf
+ADD ac_backend/docker/nginx/mime.types /usr/local/openresty/nginx/conf/conf/mime.types
+ADD ac_backend/docker/nginx/jwt-auth.lua /usr/local/openresty/lualib/resty/jwt-auth.lua
+COPY --from=build-stage /admin/dist /usr/share/nginx/html/
+
+EXPOSE 80 8080 8088
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

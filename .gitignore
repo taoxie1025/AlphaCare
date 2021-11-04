@@ -1,0 +1,16 @@
+/AUTHORS
+/CONTRIBUTORS
+/LICENSE
+/PATENTS
+/.idea/
+.vscode
+/ac_backend/vendor/
+/ac_backend/mysql_data/
+
+/ac_frontend/apps/admin/.DS_Store
+/ac_frontend/apps/admin/node_modules
+/ac_frontend/apps/admin/dist
+/ac_frontend/apps/admin/npm-debug.log*
+/ac_frontend/apps/admin/yarn-debug.log*
+/ac_frontend/apps/admin/yarn-error.log*
+/ac_frontend/apps/admin/pnpm-debug.log*

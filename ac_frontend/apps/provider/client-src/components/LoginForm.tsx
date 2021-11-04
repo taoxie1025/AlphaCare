@@ -1,0 +1,94 @@
+import React, { FormEvent, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { AppState } from '../../@types/global';
+import { login } from '../store/actions/user';
+import { useOktaAuth } from '@okta/okta-react';
+import OktaSignInWidget from './signin/OktaWidget';
+import { Redirect } from 'react-router-dom';
+
+const Wrapper = styled.div`
+  max-width: 325px;
+  width: 100%;
+  border: 1px solid #ededed;
+  border-radius: 3px;
+  box-shadow: 0px 1px 3px rgb(0 0 0 / 25%);
+  background-color: #fff;
+`;
+const Header = styled.div`
+  font-size: 28px;
+`;
+
+interface Props {
+  login?: typeof login;
+  config?: any;
+}
+
+const LoginForm = (props: AppState & Props): JSX.Element => {
+  const [newUserName, setNewUsername] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+
+  const { oktaAuth, authState } = useOktaAuth();
+
+  const onSuccess = (tokens: any) => {
+    oktaAuth.handleLoginRedirect(tokens);
+  };
+
+  const onError = (err: Error) => {
+    console.log('error logging in', err);
+  };
+
+  if ((authState as any)?.isPending) return null;
+
+  const onLogin = (e: FormEvent) => {
+    e.preventDefault();
+    props.login(newUserName, newPassword);
+  };
+
+  return authState.isAuthenticated ? (
+    <Redirect to={{ pathname: '/' }} />
+  ) : (
+    <OktaSignInWidget
+      config={props?.config}
+      onSuccess={onSuccess}
+      onError={onError} />
+  );
+
+  // return (
+  //   <Wrapper>
+  //     <Header>
+  //       <h2>Login</h2>
+  //     </Header>
+  //     <form onSubmit={onLogin}>
+  //       <div>
+  //         <input
+  //           type="text"
+  //           id="username"
+  //           value={newUserName}
+  //           placeholder="Nyx username"
+  //           onChange={(e) => setNewUsername(e.target.value)}
+  //           autoCorrect="off"
+  //           autoCapitalize="off"
+  //           spellCheck="false"
+  //         />
+  //         <label htmlFor="username">Username</label>
+  //       </div>
+  //       <div>
+  //         <input
+  //           id="password"
+  //           type="password"
+  //           value={newPassword}
+  //           placeholder="••••••••••"
+  //           onChange={(e) => setNewPassword(e.target.value)}
+  //         />
+  //         <label htmlFor="password">Password</label>
+  //       </div>
+  //       <button className="form__submit-btn" type="submit">
+  //         Login
+  //       </button>
+  //     </form>
+  //   </Wrapper>
+  // );
+};
+
+export default connect((state) => state, { login })(LoginForm);

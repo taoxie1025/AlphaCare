@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+option go_package = "generated/secure_messaging";
+option java_multiple_files = true;
+option java_package = "io.grpc.alphacare.secure_messaging";
+option java_outer_classname = "SecureMessagingProto";
+
+package api.v1;
+
+message Message {
+	string id = 1;
+	string threadId = 2;
+	string sender = 3;
+	string receiver = 4;
+	int64 timestamp = 5;
+	string subject = 6;
+	string messageBody = 7;
+	enum Urgency {
+        CRITICAL = 0;
+        HIGH = 1;
+        MEDIUM = 2;
+        LOW = 3;
+    }
+	Urgency urgency = 8;
+	enum Status {
+    	STATUS_ACTIVE = 0;
+    	STATUS_DELETED = 1;
+    	STATUS_EXPIRED = 2;
+    }
+	Status status = 9;
+	bool isViewed = 10;
+	string preview = 11;
+	enum NotificationMethod {
+        TEXT = 0;
+        EMAIL = 1;
+    }
+	repeated NotificationMethod notificationMethod = 12;
+	int64 expiration = 13;
+    string attachmentId = 14;
+    string attachmentType = 15;
+    string attachmentTitle = 16;
+    string attachmentUrl = 17;
+    int64 attachmentExpiration = 18;
+}
+
+message SendMessageRequest {
+	Message message = 1;
+}
+
+message SendMessageResponse {
+	string id = 1;
+}
+
+message GetMessageRequest {
+	string receiverId = 1;
+	string threadId = 2;
+	string senderId = 3;
+}
+
+message GetMessageResponse {
+	repeated Message messages = 1;
+}
+
+
+service SecureMessagingService {
+	rpc SendMessage (SendMessageRequest) returns (SendMessageResponse);
+	rpc GetMessages (GetMessageRequest) returns (GetMessageResponse);
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "name": "nginx",
+    "imageUri": "513603185696.dkr.ecr.us-west-2.amazonaws.com/alphacare/backend/nginx:latest"
+  },
+  {
+    "name": "user_registry",
+    "imageUri": "513603185696.dkr.ecr.us-west-2.amazonaws.com/alphacare/backend/user-registry:latest"
+  },
+  {
+    "name": "config_registry",
+    "imageUri": "513603185696.dkr.ecr.us-west-2.amazonaws.com/alphacare/backend/config-registry:latest"
+  },
+  {
+    "name": "patient_registry",
+    "imageUri": "513603185696.dkr.ecr.us-west-2.amazonaws.com/alphacare/backend/patient-registry:latest"
+  },
+  {
+    "name": "patient_visit",
+    "imageUri": "513603185696.dkr.ecr.us-west-2.amazonaws.com/alphacare/backend/patient-visit:latest"
+  },
+  {
+    "name": "notification",
+    "imageUri": "513603185696.dkr.ecr.us-west-2.amazonaws.com/alphacare/backend/notification:latest"
+  },
+  {
+    "name": "prescription",
+    "imageUri": "513603185696.dkr.ecr.us-west-2.amazonaws.com/alphacare/backend/prescription:latest"
+  },
+  {
+    "name": "billing",
+    "imageUri": "513603185696.dkr.ecr.us-west-2.amazonaws.com/alphacare/backend/billing:latest"
+  }
+]

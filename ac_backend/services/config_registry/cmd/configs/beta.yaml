@@ -1,0 +1,11 @@
+app:
+    env:  "beta"
+    server:
+        port: ":50052"
+        reversedProxy: "nginx:8080"
+    db:
+        user: "postgres"
+        password: "12345qwert"
+        url: "beta-postgresdb.cbr86xigcyyg.us-west-2.rds.amazonaws.com"
+        port: "5432"
+        name: "postgres"

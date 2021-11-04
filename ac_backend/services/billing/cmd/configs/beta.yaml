@@ -1,0 +1,15 @@
+app:
+    env:  "beta"
+    server:
+        port: ":50057"
+        reversedProxy: "nginx:8080"
+    stripe:
+        stripePrivateKey: "sk_test_51ImROKK8Na7IERzDrz2CPSqL8lclWxC50UgHYkOmj2qFr2W2gUs9AdOKxiM0k9NKdCPai2HYxpo1DZTY4jGi4WKG00IhyVzUY3"
+        stripeWebhookSecret: "abcdefg"
+        generalInvoiceProductId: "prod_JQ5o0z76aXY3hI"
+    db:
+        user: "postgres"
+        password: "12345qwert"
+        url: "beta-postgresdb.cbr86xigcyyg.us-west-2.rds.amazonaws.com"
+        port: "5432"
+        name: "postgres"

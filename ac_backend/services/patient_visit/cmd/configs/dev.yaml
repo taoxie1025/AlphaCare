@@ -1,0 +1,11 @@
+app:
+    env:  "dev"
+    server:
+        port: ":50054"
+        reversedProxy: "nginx:8080"
+    db:
+        user: "postgres"
+        password: "12345"
+        url: "db"
+        port: "5432"
+        name: "alphacare"

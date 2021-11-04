@@ -1,0 +1,21 @@
+scripts:
+  build:
+    default: nps build.server && nps build.client
+    server:
+      script: tsc
+    client:
+      script: webpack --mode=production
+  dev:
+    default: nps build.server && concurrently "nps dev.webpack" "nps dev.nodemon"
+    webpack:
+      script: webpack --mode=development --watch
+    nodemon:
+      script: nodemon --watch
+
+  format:
+    default: prettier --write .
+    check: prettier --check '**/*.@([jt]s?(x)|json)'
+
+  lint:
+    default: tsc --noEmit && eslint '**/*.@([jt]s?(x)|json)'
+    fix: eslint --fix --ext .ts --ext .tsx --ext .js --ext .jsx --ext .json && nps format

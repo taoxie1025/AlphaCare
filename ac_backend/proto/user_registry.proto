@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+option go_package = "generated/user_registry";
+option java_multiple_files = true;
+option java_package = "io.grpc.alphacare.user_registry";
+option java_outer_classname = "UserRegistryProto";
+
+package api.v1;
+
+message GetUserRequest {
+  string userId = 1;
+}
+
+message GetUserResponse {
+  string userId = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+  int32 userScope = 5;
+}
+
+message CreateUserRequest {
+  string firstName = 1;
+  string lastName = 2;
+  string email = 3;
+  string password = 4;
+  bool   resetPassword = 5;
+  string refreshUrl = 6;
+  string returnUrl = 7;
+}
+
+message CreateUserResponse {
+  string userId = 1;
+  string refreshUrl = 2;
+  string returnUrl = 3;
+  string stripeOnboardingUrl = 4;
+  int64  stripeOnboardingUrlExpiresAt = 5;
+  string stripeAccountId = 6;
+  int64  stripeAccountCreatedAt = 7;
+  string stripeCustomerId = 8;
+  string jwtToken = 9;
+  Claims claims = 10;
+}
+
+message LoginUserRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginUserResponse {
+  string userId = 1;
+  string jwtToken = 2;
+  Claims claims = 3;
+}
+
+message Claims {
+  string email = 1;
+  int32  userScope = 2;
+  int64  exp = 3;
+  int64  iat = 4;
+}
+
+service UserRegistry {
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc LoginUser (LoginUserRequest) returns (LoginUserResponse);
+}
